@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
-export async function connect() {
-  const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
+(async function connect() {
   try {
     await prisma.$connect();
   } catch (e) {
@@ -12,6 +12,4 @@ export async function connect() {
   } finally {
     await prisma.$disconnect();
   }
-
-  return prisma;
-}
+})();
