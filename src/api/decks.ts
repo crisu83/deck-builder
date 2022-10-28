@@ -19,10 +19,10 @@ export async function updateDeck(id: string, body: Prisma.DeckUpdateInput) {
   return prisma.deck.update(args);
 }
 
-export async function listDecks() {
+export async function queryDecks() {
   const args = { ...defaultArgs };
 
-  console.log(`list decks (args=${JSON.stringify(args)})`);
+  console.log(`query decks (args=${JSON.stringify(args)})`);
 
   return prisma.deck.findMany(args);
 }
