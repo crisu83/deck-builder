@@ -21,6 +21,6 @@ export default async function handler(
     case "GET":
       return res.status(200).json({ data: await queryDecks() });
     default:
-      return res.status(404).json({ message: `Page not found.` });
+      return res.status(405).json({ message: "Method not allowed." });
   }
 }
