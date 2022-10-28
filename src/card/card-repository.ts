@@ -3,46 +3,26 @@ import { Repository } from "@app/interfaces/repository";
 import { prisma } from "@app/prisma";
 
 export class CardRepository implements Repository<Card> {
-  create(input: Prisma.CardCreateInput) {
-    const args: Prisma.CardCreateArgs = { data: input };
-
-    console.log(` [*] create card (args=${JSON.stringify(args)})`);
-
-    return prisma.card.create(args);
+  async create(input: Prisma.CardCreateInput) {
+    return prisma.card.create({ data: input });
   }
 
-  update(id: string, input: Prisma.CardUpdateInput) {
-    const args: Prisma.CardUpdateArgs = {
+  async update(id: string, input: Prisma.CardUpdateInput) {
+    return prisma.card.update({
       where: { id },
       data: input,
-    };
-
-    console.log(`[*] update card (args=${JSON.stringify(args)})`);
-
-    return prisma.card.update(args);
+    });
   }
 
-  delete(id: string) {
-    const args: Prisma.CardDeleteArgs = { where: { id } };
-
-    console.log(` [*] delete card (args=${JSON.stringify(args)})`);
-
-    return prisma.card.delete(args);
+  async delete(id: string) {
+    return prisma.card.delete({ where: { id } });
   }
 
-  findOne(id: string) {
-    const args: Prisma.CardFindFirstArgs = { where: { id } };
-
-    console.log(` [*] find first card (args=${JSON.stringify(args)})`);
-
-    return prisma.card.findFirst(args);
+  async findOne(id: string) {
+    return prisma.card.findFirst({ where: { id } });
   }
 
-  findMany() {
-    const args: Prisma.CardFindManyArgs = {};
-
-    console.log(` [*] find many cards (args=${JSON.stringify(args)})`);
-
-    return prisma.card.findMany(args);
+  async findMany() {
+    return prisma.card.findMany({});
   }
 }

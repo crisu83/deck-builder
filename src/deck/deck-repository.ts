@@ -3,49 +3,32 @@ import { Repository } from "@app/interfaces/repository";
 import { prisma } from "@app/prisma";
 
 export class DeckRepository implements Repository<Deck> {
-  create(input: Prisma.DeckCreateInput) {
-    const args: Prisma.DeckCreateArgs = { data: input };
-
-    console.log(` [*] create deck (args=${JSON.stringify(args)})`);
-
-    return prisma.deck.create(args);
+  async create(input: Prisma.DeckCreateInput) {
+    return prisma.deck.create({ data: input, include: { cards: true } });
   }
 
-  update(id: string, input: Prisma.DeckUpdateInput) {
-    const args: Prisma.DeckUpdateArgs = {
+  async update(id: string, input: Prisma.DeckUpdateInput) {
+    return prisma.deck.update({
       where: { id },
       data: input,
-    };
-
-    console.log(`[*] update deck (args=${JSON.stringify(args)})`);
-
-    return prisma.deck.update(args);
+      include: { cards: true },
+    });
   }
 
-  delete(id: string) {
-    const args: Prisma.DeckDeleteArgs = { where: { id } };
-
-    console.log(` [*] delete deck (args=${JSON.stringify(args)})`);
-
-    return prisma.deck.delete(args);
+  async delete(id: string) {
+    return prisma.deck.delete({ where: { id }, include: { cards: true } });
   }
 
-  findOne(id: string) {
-    const args: Prisma.DeckFindFirstArgs = {
+  async findOne(id: string) {
+    return prisma.deck.findUnique({
       where: { id },
       include: { cards: true },
-    };
-
-    console.log(` [*] find first deck (args=${JSON.stringify(args)})`);
-
-    return prisma.deck.findFirst(args);
+    });
   }
 
-  findMany() {
-    const args: Prisma.DeckFindManyArgs = {};
-
-    console.log(` [*] find many decks (args=${JSON.stringify(args)})`);
-
-    return prisma.deck.findMany(args);
+  async findMany() {
+    return prisma.deck.findMany({
+      include: { cards: true },
+    });
   }
 }

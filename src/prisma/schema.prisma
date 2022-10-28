@@ -19,6 +19,7 @@ model Deck {
 model Card {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   title    String
+  type     String
   set      String
   quantity Int
   deck     Deck   @relation(fields: [deckId], references: [id])
