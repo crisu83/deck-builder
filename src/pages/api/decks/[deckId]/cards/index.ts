@@ -2,22 +2,30 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { Card } from "@prisma/client";
 import {
-  addCard,
   CreateResponse,
   ErrorResponse,
+  methodNotAllowed,
   parseQuery,
-} from "../../../../../api";
+} from "@app/api/rest";
+import { CardRepository } from "@app/card/card-repository";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CreateResponse<Card> | ErrorResponse>
 ) {
   const deckId = parseQuery("deckId", req);
+  const cardRepo = new CardRepository();
 
   switch (req.method) {
     case "POST":
-      return res.status(200).json({ data: await addCard(deckId, req.body) });
+      const input = {
+        ...req.body,
+        deck: { connect: { id: deckId } },
+      };
+      return res.status(200).json({
+        data: await cardRepo.create(input),
+      });
     default:
-      return res.status(405).json({ message: "Method not allowed." });
+      return methodNotAllowed(res);
   }
 }

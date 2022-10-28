@@ -5,11 +5,14 @@ export const prisma = new PrismaClient();
 (async function connect() {
   try {
     await prisma.$connect();
-  } catch (e) {
-    console.error(e);
+    console.log(" [*] connect prisma");
+  } catch (err) {
+    console.error(err);
     await prisma.$disconnect();
+    console.log(" [*] disconnect prisma (error)");
     process.exit(1);
   } finally {
     await prisma.$disconnect();
+    console.log(" [*] disconnect prisma");
   }
 })();
