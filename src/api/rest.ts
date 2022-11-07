@@ -19,12 +19,12 @@ export function parseQuery(key: string, req: NextApiRequest): string {
 export function handleError(err: unknown, res: NextApiResponse) {
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     const message = parseErrorMessage(err) ?? "Internal server error.";
-    return internalServerError(message, res);
+    return serverError(message, res);
   }
   throw err;
 }
 
-export function internalServerError(message: string, res: NextApiResponse) {
+export function serverError(message: string, res: NextApiResponse) {
   return res.status(500).json({ message });
 }
 

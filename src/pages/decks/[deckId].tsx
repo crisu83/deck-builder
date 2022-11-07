@@ -7,8 +7,8 @@ import { Loader } from "@app/components/loader";
 import {
   Table,
   TableBody,
-  TableHeading,
-  TableRow,
+  TableHeaderCell,
+  TableDataCell,
 } from "@app/components/table";
 
 export default function DeckPage() {
@@ -29,19 +29,19 @@ export default function DeckPage() {
             <Table>
               <thead>
                 <tr>
-                  <TableHeading>Title</TableHeading>
-                  <TableHeading>Type</TableHeading>
-                  <TableHeading>Set</TableHeading>
-                  <TableHeading>Quantity</TableHeading>
+                  <TableHeaderCell>Title</TableHeaderCell>
+                  <TableHeaderCell>Type</TableHeaderCell>
+                  <TableHeaderCell>Set</TableHeaderCell>
+                  <TableHeaderCell>Quantity</TableHeaderCell>
                 </tr>
               </thead>
               <TableBody>
                 {data.cards.map((card) => (
                   <tr key={card.id}>
-                    <TableRow>{card.title}</TableRow>
-                    <TableRow>{card.type}</TableRow>
-                    <TableRow>{card.set}</TableRow>
-                    <TableRow>{card.quantity}</TableRow>
+                    <TableDataCell>{card.title}</TableDataCell>
+                    <TableDataCell>{card.type}</TableDataCell>
+                    <TableDataCell>{card.set}</TableDataCell>
+                    <TableDataCell>{card.quantity}</TableDataCell>
                   </tr>
                 ))}
               </TableBody>

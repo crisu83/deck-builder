@@ -3,9 +3,10 @@ import { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{ className?: string }>;
 
-export function Table({ className, children }: Props) {
+export function Table({ className, children, ...props }: Props) {
   return (
     <table
+      {...props}
       className={classNames(
         "border-collapse table-fixed w-full text-sm",
         className
@@ -16,11 +17,28 @@ export function Table({ className, children }: Props) {
   );
 }
 
-export function TableHeading({ className, children }: Props) {
+export function TableHead({ className, children, ...props }: Props) {
+  return (
+    <thead {...props} className={classNames("", className)}>
+      {children}
+    </thead>
+  );
+}
+
+export function TableRow({ className, children, ...props }: Props) {
+  return (
+    <tr {...props} className={classNames("", className)}>
+      {children}
+    </tr>
+  );
+}
+
+export function TableHeaderCell({ className, children, ...props }: Props) {
   return (
     <th
+      {...props}
       className={classNames(
-        "border-b border-slate-600 font-medium p-4 pl-8 text-slate-200 text-left",
+        "border-b border-slate-600 font-medium p-4 text-slate-200 text-left",
         className
       )}
     >
@@ -29,17 +47,20 @@ export function TableHeading({ className, children }: Props) {
   );
 }
 
-export function TableBody({ className, children }: Props) {
+export function TableBody({ className, children, ...props }: Props) {
   return (
-    <tbody className={classNames("bg-slate-800", className)}>{children}</tbody>
+    <tbody {...props} className={classNames("bg-slate-800", className)}>
+      {children}
+    </tbody>
   );
 }
 
-export function TableRow({ className, children }: Props) {
+export function TableDataCell({ className, children, ...props }: Props) {
   return (
     <td
+      {...props}
       className={classNames(
-        "border-b border-slate-700 p-4 pl-8 text-slate-400",
+        "border-b border-slate-700 p-4 text-slate-400",
         className
       )}
     >
