@@ -8,10 +8,7 @@ export class CardRepository implements Repository<Card> {
   }
 
   async update(id: string, input: Prisma.CardUpdateInput) {
-    return prisma.card.update({
-      where: { id },
-      data: input,
-    });
+    return prisma.card.update({ where: { id }, data: input });
   }
 
   async delete(id: string) {

@@ -1,9 +1,8 @@
 import { MutatorOptions, useSWRConfig } from "swr";
 
 export function useMutation<T>(
-  key: string,
-  options?: MutatorOptions
-): (input: unknown) => Promise<T> {
+  key: string
+): (input: unknown, options?: MutatorOptions) => Promise<T> {
   const updateFn = async (url: string, input: unknown) => {
     const res = await fetch(url, {
       method: "POST",
@@ -14,5 +13,5 @@ export function useMutation<T>(
     return data as T;
   };
   const { mutate } = useSWRConfig();
-  return (input) => mutate(key, updateFn(key, input), options);
+  return (input, options) => mutate(key, updateFn(key, input), options);
 }

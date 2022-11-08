@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import { PropsWithChildren } from "react";
+import { HTMLProps } from "react";
 
-type Props = PropsWithChildren<{ className?: string }>;
-
-export function Table({ className, children, ...props }: Props) {
+export function Table({ className, ...props }: HTMLProps<HTMLTableElement>) {
   return (
     <table
       {...props}
@@ -11,29 +9,35 @@ export function Table({ className, children, ...props }: Props) {
         "border-collapse table-fixed w-full text-sm",
         className
       )}
-    >
-      {children}
-    </table>
+    />
   );
 }
 
-export function TableHead({ className, children, ...props }: Props) {
-  return (
-    <thead {...props} className={classNames("", className)}>
-      {children}
-    </thead>
-  );
+export function TableHead({
+  className,
+  ...props
+}: HTMLProps<HTMLTableSectionElement>) {
+  return <thead {...props} className={classNames("", className)} />;
 }
 
-export function TableRow({ className, children, ...props }: Props) {
-  return (
-    <tr {...props} className={classNames("", className)}>
-      {children}
-    </tr>
-  );
+export function TableBody({
+  className,
+  ...props
+}: HTMLProps<HTMLTableSectionElement>) {
+  return <tbody {...props} className={classNames("bg-slate-800", className)} />;
 }
 
-export function TableHeaderCell({ className, children, ...props }: Props) {
+export function TableRow({
+  className,
+  ...props
+}: HTMLProps<HTMLTableRowElement>) {
+  return <tr {...props} className={classNames("", className)} />;
+}
+
+export function TableHeaderCell({
+  className,
+  ...props
+}: HTMLProps<HTMLTableCellElement>) {
   return (
     <th
       {...props}
@@ -41,21 +45,14 @@ export function TableHeaderCell({ className, children, ...props }: Props) {
         "border-b border-slate-600 font-medium p-4 text-slate-200 text-left",
         className
       )}
-    >
-      {children}
-    </th>
+    />
   );
 }
 
-export function TableBody({ className, children, ...props }: Props) {
-  return (
-    <tbody {...props} className={classNames("bg-slate-800", className)}>
-      {children}
-    </tbody>
-  );
-}
-
-export function TableDataCell({ className, children, ...props }: Props) {
+export function TableDataCell({
+  className,
+  ...props
+}: HTMLProps<HTMLTableCellElement>) {
   return (
     <td
       {...props}
@@ -63,8 +60,6 @@ export function TableDataCell({ className, children, ...props }: Props) {
         "border-b border-slate-700 p-4 text-slate-400",
         className
       )}
-    >
-      {children}
-    </td>
+    />
   );
 }
